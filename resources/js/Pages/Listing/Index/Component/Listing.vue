@@ -12,11 +12,13 @@
                     <ListingAddres :listing="listing" class="text-gray-500"/>
                 </Link>
             </div>
-            <div>
-                <Link :href="route('listing.edit', {listing: listing.id})">Edit</Link>
-            </div>
-            <div>
-                <Link :href="route('listing.destroy', {listing: listing.id})" method="DELETE">deleted</Link>
+            <div v-if="user">
+                 <div>
+                    <Link :href="route('listing.edit', {listing: listing.id})">Edit</Link>
+                </div>
+                <div>
+                    <Link :href="route('listing.destroy', {listing: listing.id})" method="DELETE">deleted</Link>
+                </div>
             </div>
     </Box>
 </template>
@@ -27,8 +29,10 @@
     import Price from '@/Component/Price.vue';
     import Box from '@/Component/UI/Box.vue';
     import { useMonthlPayment } from '@/Composables/useMonthlyPayment';
-    import { Link } from '@inertiajs/vue3';
+    import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
     const props = defineProps({listing:Object})
     const {mothlyPayment} = useMonthlPayment(props.listing.price,2.5,25)
+    const user = computed(()=>usePage().props.user) 
 </script>
