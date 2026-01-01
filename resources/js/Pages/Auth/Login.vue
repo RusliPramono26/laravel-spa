@@ -11,15 +11,18 @@
                 <input type="password" name="password" id="password" class="input" v-model="form.password">
                 <div class="input-error" v-if="form.errors">{{  form.errors.password }}</div>
             </div>
-            <div class="mt--4">
+            <div class="mt-4">
                 <button class="btn-primary w-full">Login</button>
+                <div class="mt-2 text-center">
+                    <Link :href="route('user-account.create')">Need a Account? Click Here</Link>
+                </div>
             </div>
         </div>
     </form>
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy';
 
 const form = useForm({
