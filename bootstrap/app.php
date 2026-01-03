@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
         HandleInertiaRequests::class,
     ]);
+        $middleware->validateCsrfTokens(except: [
+            '/logout',
+            '/realtor/listing/*'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

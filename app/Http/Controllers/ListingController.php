@@ -38,6 +38,7 @@ class ListingController extends Controller
     public function show(Listing $listing)
     {
         // Auth::user()->can('view',$listing);
+         $listing->load(['images']);
 
         return inertia(
             'Listing/Show',
