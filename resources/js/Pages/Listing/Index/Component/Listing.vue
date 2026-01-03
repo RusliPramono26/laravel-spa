@@ -12,14 +12,6 @@
                     <ListingAddres :listing="listing" class="text-gray-500"/>
                 </Link>
             </div>
-            <div v-if="user">
-                 <div>
-                    <Link :href="route('listing.edit', {listing: listing.id})">Edit</Link>
-                </div>
-                <div>
-                    <Link :href="route('listing.destroy', {listing: listing.id})" method="DELETE">deleted</Link>
-                </div>
-            </div>
     </Box>
 </template>
 

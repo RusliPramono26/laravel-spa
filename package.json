@@ -19,6 +19,8 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
-        "@inertiajs/vue3": "^2.3.4"
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/vue3": "^2.3.4",
+        "lodash": "^4.17.21"
     }
 }
