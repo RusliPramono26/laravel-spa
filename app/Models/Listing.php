@@ -31,10 +31,20 @@ class Listing extends Model
     {
         return $this->hasMany(ListingImage::class);
     }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(Offer::class, 'listing_id');
+    }
     #[Scope]
     public function scopeMostRecent(Builder $query): void
     {
         $query->orderByDesc('created_at');
+    }
+
+     public function scopeWithoutSold(Builder $query): Builder
+    {
+        return $query->whereNull('sold_at');
     }
 
     #[Scope]

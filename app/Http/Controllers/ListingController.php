@@ -25,7 +25,11 @@ class ListingController extends Controller
             'Listing/Index',
             [
                 'filters'=> $filters,
-                'listings' => Listing::mostRecent()->filter($filters)->paginate(10)->withQueryString()
+                'listings' => Listing::mostRecent()
+                ->filter($filters)
+                ->withoutSold()
+                ->paginate(10)
+                ->withQueryString()
             ]
          );
     }
@@ -39,11 +43,14 @@ class ListingController extends Controller
     {
         // Auth::user()->can('view',$listing);
          $listing->load(['images']);
+         $offer = !Auth::user() ?
+            null : $listing->offers()->byMe()->first();
 
         return inertia(
             'Listing/Show',
             [
-                'listing' => $listing
+                'listing' => $listing,
+                'offerMade' => $offer
             ]
          );
     }

@@ -22,11 +22,19 @@ class RealtorListingController extends Controller
             'Realtor/Index',
             ['listings' => Auth::user()
             ->listings()
-            // ->mostRecent()
             ->filter($filters)
             ->withCount('images')
+            ->withCount('offers')
             ->paginate(5)
             ->withQueryString()]
+        );
+    }
+
+     public function show(Listing $listing)
+    {
+        return inertia(
+            'Realtor/Show',
+            ['listing' => $listing->load('offers', 'offers.bidder')]
         );
     }
 
