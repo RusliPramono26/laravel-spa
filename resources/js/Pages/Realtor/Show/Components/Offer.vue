@@ -20,10 +20,11 @@
       </div>
       <div>
         <Link
-            v-if="!isSold"
-            :href="route('realtor.offer.accept', { offer: offer.id })"
-            class="btn-outline text-xs font-medium" 
-            as="button"  method="put"
+          v-if="!offer.accepted_at && !offer.rejected_at && !isSold"
+          :href="route('realtor.offer.accept', { offer: offer.id })"
+          class="btn-outline text-xs font-medium"
+          as="button"
+          method="put"
         >
           Accept
         </Link>
@@ -36,6 +37,7 @@
 import Price from '@/Component/Price.vue'
 import Box from '@/Component/UI/Box.vue'
 import { Link } from '@inertiajs/vue3'
+import { sortedLastIndexOf } from 'lodash'
 import { computed } from 'vue'
 
 const props = defineProps({

@@ -27,11 +27,15 @@ class ListingPolicy
      */
     public function view(?User $user, Listing $listing): bool
     {
-         if ($listing->by_user_id === $user?->id) {
+        if($user->is_admin != true) {
             return true;
+        } else {
+            if ($listing->by_user_id === $user?->id) {
+                return true;
+            }
+            return $listing->sold_at === null;
         }
-
-        return $listing->sold_at === null;
+        
     }
 
     /**
@@ -39,7 +43,10 @@ class ListingPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        if($user->is_admin != true){
+             return false;
+        }
+       
     }
 
     /**

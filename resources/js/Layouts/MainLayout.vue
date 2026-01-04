@@ -9,10 +9,13 @@
                 <Link :href="route('listing.index')">Larazillow</Link>
             </div>
             <div v-if="user" class="flex items-center gap-4"> 
-                <Link class="text-sm text-gray-500" :href="route('realtor.listing.index')">{{ user.name }}</Link>
-                <Link :href="route('realtor.listing.create')" class="btn-primary">+ New Listing</Link>
+                <Link class="text-sm text-gray-500"
+                    :href="user.is_admin
+                        ? route('realtor.listing.index')
+                        : route('user-bid.index')"
+                >{{ user.name }}</Link>
                 <div>
-                   <Link :href="route('logout')" method="delete" as="button"> Logout</ Link>
+                   <Link :href="route('logout')" method="delete" as="button" class=""> Logout</ Link>
                 </div>
             </div>
             <div v-else class="flex items-center gap-2">
@@ -44,11 +47,4 @@
   const user = computed(
     ()=> page.props.user)
 </script>
-
-<style scoped>
-  .success {
-    background-color: green;
-    color: white;
-  }
-</style>
 

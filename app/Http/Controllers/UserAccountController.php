@@ -16,7 +16,8 @@ class UserAccountController extends Controller
         $user = User::create($request->validate([
             'name'=>'required',
             'email'=>'required|email|unique:users',
-            'password'=>'required|min:8|confirmed'
+            'password'=>'required|min:8|confirmed',
+            'is_admin' => false
         ]));
         
         // $user->save();

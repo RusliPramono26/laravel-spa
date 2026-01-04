@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RealtorListingAcceptOfferController extends Controller
 {
@@ -15,8 +16,10 @@ class RealtorListingAcceptOfferController extends Controller
         // Accept selected offer
         $offer->update(['accepted_at' => now()]);
 
-        $listing->sold_at = now();
-        $listing->save();
+        $listing->update([
+            'sold_at' => now(),
+            'sold_to' => $offer->bidder_id, 
+        ]);  
 
         // Reject all other offers
         $listing->offers()->except($offer)
