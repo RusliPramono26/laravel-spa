@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class UserAccountController extends Controller
 {
@@ -17,12 +18,12 @@ class UserAccountController extends Controller
             'name'=>'required',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:8|confirmed',
-            'is_admin' => false
         ]));
         
         // $user->save();
 
         Auth::login($user);
+        event(new Registered($user));
 
         return redirect()->route('listing.index')->with('success','Account Created!!');
     }

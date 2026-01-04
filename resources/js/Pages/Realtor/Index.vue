@@ -24,7 +24,7 @@
           <ListingAddres :listing="listing" />
         </div>
 
-        <section>
+        <section v-if="listing.sold_at == null">
           <div
             class="flex items-center gap-1 text-gray-600 dark:text-gray-300"
           >
@@ -95,9 +95,11 @@ import Box from '@/Component/UI/Box.vue'
 import Pagination from '@/Component/UI/Pagination.vue'
 import { Link } from '@inertiajs/vue3'
 import RealtorFilter from '@/Pages/Realtor/Index/Component/RealtorFilter.vue'
+import EmptyState from '@/Component/UI/EmptyState.vue'
 
 defineProps({
   listings: Object,
   filters: Object,
 })
+
 </script>

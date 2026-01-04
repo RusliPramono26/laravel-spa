@@ -77,9 +77,9 @@ import Price from '@/Component/Price.vue'
 import Box from '@/Component/UI/Box.vue'
 import Pagination from '@/Component/UI/Pagination.vue'
 import { usePage } from '@inertiajs/vue3'
-import RealtorFilter from '@/Pages/Realtor/Index/Component/RealtorFilter.vue'
 import { computed } from 'vue'
 import BidFilter from './Index/Components/BidFilter.vue'
+import EmptyState from '@/Component/UI/EmptyState.vue'
 
 
 defineProps({

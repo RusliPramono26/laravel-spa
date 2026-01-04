@@ -46,15 +46,16 @@ class RealtorListingController extends Controller
         return inertia('Realtor/Create');
     }
 
-    public function edit(Listing $listing)
-    {
-        return inertia(
-            'Realtor/Edit',
-            [
-                'listing' => $listing
-            ]
-         );
-    }
+        public function edit(Listing $listing)
+        {
+            $this->authorize('update',$listing);
+            return inertia(
+                'Realtor/Edit',
+                [
+                    'listing' => $listing
+                ]
+            );
+        }
 
     /**
      * Update the specified resource in storage.

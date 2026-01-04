@@ -12,11 +12,13 @@ class ListingPolicy
      * Determine whether the user can view any models.
      */
 
-    public function before(?User $user,$ability){
-        if($user ?->is_admin){
-            return true;
-        }
+    public function before(User $user, string $ability)
+{
+    // jangan override update
+    if ($user->is_admin && $ability !== 'update') {
+        return true;
     }
+}
     public function viewAny(?User $user): bool
     {
         return true;
@@ -41,9 +43,9 @@ class ListingPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user,Listing $listing): bool
     {
-        if($user->is_admin != true){
+        if($user->is_admin != true ){
              return false;
         }
        
@@ -54,8 +56,17 @@ class ListingPolicy
      */
     public function update(User $user, Listing $listing): bool
     {
-        return $listing->sold_at === null
-            && ($user->id === $listing->by_user_id);
+        if ($listing->sold_at !== null) {
+            return false;
+        }
+
+        // admin boleh
+        if ($user->is_admin) {
+            return true;
+        }
+
+        // owner boleh edit listing yang belum sold
+        return $listing->by_user_id === $user->id;
     }
 
     /**
